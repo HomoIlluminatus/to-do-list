@@ -1,7 +1,10 @@
 from abc import abstractmethod
 
 import sqlalchemy as sa
+from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import Depends
 
+from core.db import get_async_session
 from .base import BaseRepository
 from .mappers import task_model_to_task, task_to_task_model
 from entities.task import Task
@@ -19,6 +22,11 @@ class AbstractTaskRepository(BaseRepository[Task]):
 
 
 class TaskRepository(AbstractTaskRepository):
+    def __init__(
+        self, session: AsyncSession = Depends(get_async_session)
+    ) -> None:
+        super().__init__(session)
+
     async def get_by_id(self, task_id: int) -> Task | None:
         queryset = await self._session.execute(
             sa.select(TaskModel).where(TaskModel.id == task_id)

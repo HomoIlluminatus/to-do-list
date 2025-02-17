@@ -1,6 +1,10 @@
 from abc import abstractmethod
 
 import sqlalchemy as sa
+from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import Depends
+
+from core.db import get_async_session
 from .base import BaseRepository
 from .mappers import category_model_to_category, category_to_category_model
 from entities.category import Category
@@ -15,6 +19,11 @@ class AbstractCategoryRepository(BaseRepository[Category]):
 
 
 class CategoryRepository(AbstractCategoryRepository):
+    def __init__(
+        self, session: AsyncSession = Depends(get_async_session)
+    ) -> None:
+        super().__init__(session)
+
     async def get_by_id(self, category_id) -> Category | None:
         queryset = await self._session.execute(
             sa.select(CategoryModel).where(CategoryModel.id == category_id)

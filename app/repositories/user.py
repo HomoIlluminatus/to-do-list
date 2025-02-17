@@ -1,8 +1,11 @@
 from abc import abstractmethod
 
-from pydantic import EmailStr
 import sqlalchemy as sa
+from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import Depends
+from pydantic import EmailStr
 
+from core.db import get_async_session
 from entities.user import User
 from models.user import UserModel
 from .base import BaseRepository
@@ -15,6 +18,11 @@ class AbstractUserRepository(BaseRepository[User]):
 
 
 class UserRepository(AbstractUserRepository):
+    def __init__(
+        self, session: AsyncSession = Depends(get_async_session)
+    ) -> None:
+        super().__init__(session)
+
     async def get_by_id(self, user_id) -> User | None:
         queryset = await self._session.execute(
             sa.select(UserModel).where(User.id == user_id)
