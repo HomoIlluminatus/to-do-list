@@ -11,8 +11,8 @@ class Common(Base):
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     created_at: Mapped[datetime] = mapped_column(
-        TIMESTAMP, server_default=func.now
+        TIMESTAMP, server_default=func.now()
     )
     updated_at: Mapped[datetime] = mapped_column(
-        TIMESTAMP, server_default=func.now, onupdate=func.now
+        TIMESTAMP, server_default=func.now(), onupdate=func.now()
     )
