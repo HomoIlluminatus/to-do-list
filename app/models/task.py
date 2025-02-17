@@ -20,5 +20,5 @@ class TaskModel(Common):
     description: Mapped[str] = mapped_column(String, nullable=True)
     deadline: Mapped[datetime] = mapped_column(TIMESTAMP, nullable=True)
     status: Mapped[TaskStatus] = mapped_column(
-        Enum(TaskStatus), server_default=TaskStatus.USER.name
+        Enum(TaskStatus), server_default=TaskStatus.WAITING.name
     )
