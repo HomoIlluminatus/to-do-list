@@ -9,7 +9,7 @@ from .base import BaseRepository
 from .mappers import user_model_to_user, user_to_user_model
 
 
-class AbstractUserRepository(ABC, BaseRepository[User]):
+class AbstractUserRepository(BaseRepository[User]):
     @abstractmethod
     async def get_by_email(self, email: EmailStr) -> User | None: ...
 

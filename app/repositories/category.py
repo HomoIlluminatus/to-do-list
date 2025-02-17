@@ -7,7 +7,7 @@ from entities.category import Category
 from models.category import CategoryModel
 
 
-class AbstractCategoryRepository(ABC, BaseRepository[Category]):
+class AbstractCategoryRepository(BaseRepository[Category]):
     @abstractmethod
     async def get_user_categories_list(
         self, user_id: int
