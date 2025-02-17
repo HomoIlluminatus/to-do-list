@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres
+    container_name: db
+    restart: on-failure
+    network_mode: host
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./volumes/pgdata:/var/lib/postgresql/data/pgdata
+    ports:
+      - "${POSTGRES_PORT}:5432"
+
+  app:
+    image: to-do-list
+    build: .
+    container_name: web
+    restart: on-failure
+    network_mode: host
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
