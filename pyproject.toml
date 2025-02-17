@@ -14,6 +14,10 @@ alembic = "^1.14.1"
 sqlalchemy = {extras = ["asyncio"], version = "^2.0.38"}
 asyncpg = "^0.30.0"
 
+[tool.ruff]
+line-length = 79
+target-version = "py311"
+respect-gitignore = true
 
 [build-system]
 requires = ["poetry-core"]
