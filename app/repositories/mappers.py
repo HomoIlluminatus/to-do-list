@@ -25,7 +25,6 @@ def user_model_to_user(user: UserModel) -> User:
 
 def category_to_category_model(category: Category) -> CategoryModel:
     return CategoryModel(
-        id=category.id,
         user_id=category.user_id,
         title=category.title,
         description=category.description,
@@ -34,6 +33,7 @@ def category_to_category_model(category: Category) -> CategoryModel:
 
 def category_model_to_category(category: CategoryModel) -> Category:
     return Category(
+        id=category.id,
         user_id=category.user_id,
         title=category.title,
         description=category.description,
