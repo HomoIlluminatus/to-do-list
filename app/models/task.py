@@ -10,10 +10,10 @@ from entities.task import TaskStatus
 class TaskModel(Common):
     __tablename__ = "tasks"
 
-    user_id = Mapped[int] = mapped_column(
+    user_id: Mapped[int] = mapped_column(
         ForeignKey("users.id", ondelete="CASCADE"), nullable=False
     )
-    category_id = Mapped[int] = mapped_column(
+    category_id: Mapped[int] = mapped_column(
         ForeignKey("categories.id", ondelete="CASCADE"), nullable=False
     )
     title: Mapped[str] = mapped_column(String(length=100), nullable=False)
