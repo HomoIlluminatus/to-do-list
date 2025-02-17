@@ -7,6 +7,8 @@ APP_HOST = os.environ.get("HOST", "localhost")
 
 APP_PORT = int(os.environ.get("PORT", "8000"))
 
+DEBUG = bool(os.environ("DEBUG", False))
+
 
 def get_postgres_url():
     host = os.environ.get("POSTGRES_HOST", "localhost")
